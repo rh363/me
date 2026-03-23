@@ -25,7 +25,7 @@ const links = [
     </ul>
     <div class="mobile-actions">
       <a href={switchPath} class="lang-switch">{t('lang.switch')}</a>
-      <button class="mobile-toggle" aria-label="Menu" id="menu-toggle">
+      <button class="mobile-toggle" aria-label="Menu" aria-expanded="false" id="menu-toggle">
         <span></span>
         <span></span>
         <span></span>
@@ -120,7 +120,20 @@ const links = [
     height: 2px;
     background: var(--color-text);
     border-radius: 2px;
-    transition: var(--transition);
+    transition: all var(--transition);
+    transform-origin: center;
+  }
+
+  .mobile-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .mobile-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
   }
 
   @media (max-width: 768px) {
@@ -155,8 +168,37 @@ const links = [
 <script>
   const toggle = document.getElementById('menu-toggle');
   const nav = document.querySelector('.nav-links');
-  toggle?.addEventListener('click', () => nav?.classList.toggle('open'));
+
+  function closeMenu() {
+    nav?.classList.remove('open');
+    toggle?.classList.remove('active');
+    toggle?.setAttribute('aria-expanded', 'false');
+  }
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = nav?.classList.toggle('open');
+    toggle.classList.toggle('active', !!isOpen);
+    toggle.setAttribute('aria-expanded', String(!!isOpen));
+  });
+
   document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => nav?.classList.remove('open'));
+    link.addEventListener('click', () => closeMenu());
+  });
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as Node;
+    if (nav?.classList.contains('open') && !nav.contains(target) && !toggle?.contains(target)) {
+      closeMenu();
+    }
+  });
+
+  document.querySelectorAll('.lang-switch').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const hash = window.location.hash;
+      if (hash) {
+        e.preventDefault();
+        window.location.href = (link as HTMLAnchorElement).getAttribute('href') + hash;
+      }
+    });
   });
 </script>

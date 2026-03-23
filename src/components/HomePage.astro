@@ -6,6 +6,7 @@ import ProjectCard from './ProjectCard.astro';
 import SkillBadge from './SkillBadge.astro';
 import Footer from './Footer.astro';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getProjects } from '../data/projects';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -19,48 +20,24 @@ const info = {
   email: 'alex.massaroni2004@gmail.com',
 };
 
-const projects = [
-  {
-    title: 'Cloud Image Management System',
-    description: t('project.1.description'),
-    tech: ['Python', 'Django', 'Celery', 'Redis', 'Docker'],
-  },
-  {
-    title: 'VPC Management Platform',
-    description: t('project.2.description'),
-    tech: ['SvelteKit', 'TypeScript', 'Tailwind CSS', 'Django', 'Docker', 'GitLab CI/CD'],
-  },
-  {
-    title: 'RPC Worker API',
-    description: t('project.3.description'),
-    tech: ['Go', 'JWT', 'Celery', 'Django'],
-  },
-  {
-    title: 'Kubernetes & Infrastructure Stack',
-    description: t('project.4.description'),
-    tech: ['Kubernetes', 'Traefik', 'Go', 'Prometheus', 'Rocky Linux'],
-  },
-  {
-    title: 'Identity & Access Management',
-    description: t('project.5.description'),
-    tech: ['Keycloak', 'OIDC', 'Python', 'PHP'],
-  },
-];
+const projects = getProjects(t);
 
-const skills = [
-  'Python', 'Django', 'Go', 'TypeScript', 'SvelteKit',
-  'Flutter', 'Docker', 'Kubernetes', 'Traefik',
-  'Linux (Rocky/Debian/Ubuntu)', 'Git', 'GitLab CI/CD',
-  'Celery', 'Redis', 'PostgreSQL', 'MySQL',
-  'Keycloak/OIDC', 'Nginx', 'Prometheus', 'KVM/libvirt',
-  'HTML/CSS', 'Tailwind CSS', 'Hexagonal Architecture',
+const skillGroups = [
+  { label: t('skills.languages'), skills: ['Python', 'Go', 'TypeScript', 'HTML/CSS'] },
+  { label: t('skills.frameworks'), skills: ['Django', 'SvelteKit', 'Flutter', 'Tailwind CSS'] },
+  { label: t('skills.infrastructure'), skills: ['Docker', 'Kubernetes', 'Traefik', 'Nginx', 'KVM/libvirt'] },
+  { label: t('skills.devops'), skills: ['Git', 'GitLab CI/CD', 'Prometheus'] },
+  { label: t('skills.data'), skills: ['PostgreSQL', 'MySQL', 'Redis', 'Celery'] },
+  { label: t('skills.security'), skills: ['Keycloak/OIDC'] },
+  { label: t('skills.os'), skills: ['Linux (Rocky/Debian/Ubuntu)'] },
+  { label: t('skills.architecture'), skills: ['Hexagonal Architecture', 'SOLID Principles'] },
 ];
 ---
 
 <BaseLayout lang={lang}>
   <Header />
 
-  <main>
+  <main id="main-content">
     <Hero
       name={info.name}
       title={info.title}
@@ -99,9 +76,16 @@ const skills = [
     <section id="skills">
       <div class="container">
         <h2 class="section-title">{t('skills.title')}</h2>
-        <div class="skills-grid fade-in">
-          {skills.map(skill => (
-            <SkillBadge name={skill} />
+        <div class="skill-groups fade-in">
+          {skillGroups.map(group => (
+            <div class="skill-group">
+              <h3 class="skill-group-label">{group.label}</h3>
+              <div class="skills-grid">
+                {group.skills.map(skill => (
+                  <SkillBadge name={skill} />
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       </div>
@@ -160,13 +144,34 @@ const skills = [
   }
 
   /* Skills */
+  .skill-groups {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .skill-group {
+    margin-bottom: 1.75rem;
+  }
+
+  .skill-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .skill-group-label {
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+
   .skills-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.75rem;
-    max-width: 800px;
-    margin: 0 auto;
   }
 
   /* Contact */
