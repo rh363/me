@@ -1,0 +1,201 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from './Header.astro';
+import Hero from './Hero.astro';
+import ProjectCard from './ProjectCard.astro';
+import SkillBadge from './SkillBadge.astro';
+import Footer from './Footer.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const info = {
+  name: 'Alex',
+  title: t('hero.title'),
+  bio: t('hero.bio'),
+  github: 'https://github.com/rh363',
+  linkedin: 'https://linkedin.com/in/alex-massaroni',
+  email: 'alex.massaroni2004@gmail.com',
+};
+
+const projects = [
+  {
+    title: 'Cloud Image Management System',
+    description: t('project.1.description'),
+    tech: ['Python', 'Django', 'Celery', 'Redis', 'Docker'],
+  },
+  {
+    title: 'VPC Management Platform',
+    description: t('project.2.description'),
+    tech: ['SvelteKit', 'TypeScript', 'Tailwind CSS', 'Django', 'Docker', 'GitLab CI/CD'],
+  },
+  {
+    title: 'RPC Worker API',
+    description: t('project.3.description'),
+    tech: ['Go', 'JWT', 'Celery', 'Django'],
+  },
+  {
+    title: 'Kubernetes & Infrastructure Stack',
+    description: t('project.4.description'),
+    tech: ['Kubernetes', 'Traefik', 'Go', 'Prometheus', 'Rocky Linux'],
+  },
+  {
+    title: 'Identity & Access Management',
+    description: t('project.5.description'),
+    tech: ['Keycloak', 'OIDC', 'Python', 'PHP'],
+  },
+];
+
+const skills = [
+  'Python', 'Django', 'Go', 'TypeScript', 'SvelteKit',
+  'Flutter', 'Docker', 'Kubernetes', 'Traefik',
+  'Linux (Rocky/Debian/Ubuntu)', 'Git', 'GitLab CI/CD',
+  'Celery', 'Redis', 'PostgreSQL', 'MySQL',
+  'Keycloak/OIDC', 'Nginx', 'Prometheus', 'KVM/libvirt',
+  'HTML/CSS', 'Tailwind CSS', 'Hexagonal Architecture',
+];
+---
+
+<BaseLayout lang={lang}>
+  <Header />
+
+  <main>
+    <Hero
+      name={info.name}
+      title={info.title}
+      bio={info.bio}
+      github={info.github}
+      linkedin={info.linkedin}
+      email={info.email}
+    />
+
+    <!-- About -->
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title">{t('about.title')}</h2>
+        <div class="about-content fade-in">
+          <p>{t('about.p1')}</p>
+          <p>{t('about.p2')}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="projects-section">
+      <div class="container">
+        <h2 class="section-title">{t('projects.title')}</h2>
+        <div class="projects-grid">
+          {projects.map((project, i) => (
+            <div class={`fade-in fade-in-delay-${(i % 4) + 1}`}>
+              <ProjectCard {...project} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <div class="container">
+        <h2 class="section-title">{t('skills.title')}</h2>
+        <div class="skills-grid fade-in">
+          {skills.map(skill => (
+            <SkillBadge name={skill} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact-section">
+      <div class="container contact-content">
+        <h2 class="section-title">{t('contact.title')}</h2>
+        <p class="contact-text fade-in">{t('contact.text')}</p>
+        <a href={`mailto:${info.email}`} class="contact-btn fade-in fade-in-delay-1">
+          {t('contact.cta')} &rarr;
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* About */
+  .about-content {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .about-content p {
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Projects */
+  .projects-section {
+    background: var(--color-bg-alt);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 900px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Skills */
+  .skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* Contact */
+  .contact-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .contact-text {
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+
+  .contact-btn {
+    display: inline-block;
+    padding: 0.85rem 2.5rem;
+    border-radius: var(--radius);
+    background: var(--gradient-accent);
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all var(--transition);
+  }
+
+  .contact-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(139, 92, 246, 0.3);
+    color: white;
+  }
+</style>

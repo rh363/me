@@ -1,9 +1,16 @@
 ---
+import { getLangFromUrl, useTranslations, getLocalePath } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const switchLang = lang === 'it' ? 'en' : 'it';
+const switchPath = getLocalePath(switchLang);
+
 const links = [
-  { label: 'Chi sono', href: '#about' },
-  { label: 'Progetti', href: '#projects' },
-  { label: 'Competenze', href: '#skills' },
-  { label: 'Contatti', href: '#contact' },
+  { label: t('nav.about'), href: '#about' },
+  { label: t('nav.projects'), href: '#projects' },
+  { label: t('nav.skills'), href: '#skills' },
+  { label: t('nav.contacts'), href: '#contact' },
 ];
 ---
 
@@ -14,12 +21,16 @@ const links = [
       {links.map(link => (
         <li><a href={link.href}>{link.label}</a></li>
       ))}
+      <li><a href={switchPath} class="lang-switch">{t('lang.switch')}</a></li>
     </ul>
-    <button class="mobile-toggle" aria-label="Menu" id="menu-toggle">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+    <div class="mobile-actions">
+      <a href={switchPath} class="lang-switch">{t('lang.switch')}</a>
+      <button class="mobile-toggle" aria-label="Menu" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
   </nav>
 </header>
 
@@ -57,6 +68,7 @@ const links = [
     display: flex;
     list-style: none;
     gap: 2rem;
+    align-items: center;
   }
 
   .nav-links a {
@@ -70,8 +82,30 @@ const links = [
     color: var(--color-accent);
   }
 
-  .mobile-toggle {
+  .lang-switch {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm, 4px);
+    color: var(--color-text-muted);
+    transition: all var(--transition);
+  }
+
+  .lang-switch:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  .mobile-actions {
     display: none;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .mobile-toggle {
+    display: flex;
     flex-direction: column;
     gap: 5px;
     background: none;
@@ -104,11 +138,15 @@ const links = [
       border-bottom: 1px solid var(--color-border);
     }
 
+    .nav-links .lang-switch {
+      display: none;
+    }
+
     .nav-links.open {
       display: flex;
     }
 
-    .mobile-toggle {
+    .mobile-actions {
       display: flex;
     }
   }

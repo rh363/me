@@ -1,4 +1,6 @@
 ---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
 interface Props {
   name: string;
   title: string;
@@ -9,11 +11,13 @@ interface Props {
 }
 
 const { name, title, bio, github, linkedin, email } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <section class="hero" id="hero">
   <div class="container hero-content">
-    <p class="hero-greeting fade-in">Ciao, mi chiamo</p>
+    <p class="hero-greeting fade-in">{t('hero.greeting')}</p>
     <h1 class="hero-name fade-in fade-in-delay-1">{name}<span class="accent">.</span></h1>
     <p class="hero-title fade-in fade-in-delay-2">{title}</p>
     <p class="hero-bio fade-in fade-in-delay-3">{bio}</p>
@@ -34,7 +38,7 @@ const { name, title, bio, github, linkedin, email } = Astro.props;
         </a>
       )}
     </div>
-    <a href="#projects" class="hero-cta fade-in fade-in-delay-4">Scopri i miei progetti &darr;</a>
+    <a href="#projects" class="hero-cta fade-in fade-in-delay-4">{t('hero.cta')} &darr;</a>
   </div>
   <div class="hero-glow"></div>
 </section>
