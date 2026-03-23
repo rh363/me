@@ -1,0 +1,124 @@
+---
+const links = [
+  { label: 'Chi sono', href: '#about' },
+  { label: 'Progetti', href: '#projects' },
+  { label: 'Competenze', href: '#skills' },
+  { label: 'Contatti', href: '#contact' },
+];
+---
+
+<header class="header">
+  <nav class="container header-nav">
+    <a href="#" class="logo">MR<span class="logo-dot">.</span></a>
+    <ul class="nav-links">
+      {links.map(link => (
+        <li><a href={link.href}>{link.label}</a></li>
+      ))}
+    </ul>
+    <button class="mobile-toggle" aria-label="Menu" id="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(10, 10, 15, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+    padding: 1rem 0;
+  }
+
+  .header-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-text);
+    letter-spacing: -0.5px;
+  }
+
+  .logo-dot {
+    color: var(--color-accent);
+  }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+  }
+
+  .nav-links a {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color var(--transition);
+  }
+
+  .nav-links a:hover {
+    color: var(--color-accent);
+  }
+
+  .mobile-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .mobile-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--color-text);
+    border-radius: 2px;
+    transition: var(--transition);
+  }
+
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      background: rgba(10, 10, 15, 0.95);
+      backdrop-filter: blur(12px);
+      padding: 1.5rem;
+      gap: 1rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .nav-links.open {
+      display: flex;
+    }
+
+    .mobile-toggle {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const nav = document.querySelector('.nav-links');
+  toggle?.addEventListener('click', () => nav?.classList.toggle('open'));
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => nav?.classList.remove('open'));
+  });
+</script>

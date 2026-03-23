@@ -1,0 +1,212 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import SkillBadge from '../components/SkillBadge.astro';
+import Footer from '../components/Footer.astro';
+
+// ============================
+// PERSONALIZZA I TUOI DATI QUI
+// ============================
+
+const info = {
+  name: 'Mario Rossi',
+  title: 'Full Stack Developer',
+  bio: 'Sviluppo applicazioni web moderne con passione per il codice pulito, le performance e la user experience. Sempre alla ricerca di nuove sfide tecnologiche.',
+  github: 'https://github.com/mariorossi',
+  linkedin: 'https://linkedin.com/in/mariorossi',
+  email: 'mario@example.com',
+};
+
+const projects = [
+  {
+    title: 'E-Commerce Platform',
+    description: 'Piattaforma e-commerce completa con gestione prodotti, carrello, pagamenti Stripe e dashboard admin.',
+    tech: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
+    github: 'https://github.com/mariorossi/ecommerce',
+    url: 'https://ecommerce-demo.example.com',
+  },
+  {
+    title: 'Task Manager API',
+    description: 'API RESTful per gestione task con autenticazione JWT, ruoli utente e notifiche real-time via WebSocket.',
+    tech: ['TypeScript', 'Express', 'MongoDB', 'Socket.io'],
+    github: 'https://github.com/mariorossi/task-api',
+  },
+  {
+    title: 'Weather Dashboard',
+    description: 'Dashboard meteo interattiva con previsioni a 7 giorni, grafici e geolocalizzazione automatica.',
+    tech: ['Vue.js', 'Chart.js', 'OpenWeather API'],
+    github: 'https://github.com/mariorossi/weather',
+    url: 'https://weather-demo.example.com',
+  },
+  {
+    title: 'DevBlog',
+    description: 'Blog personale con CMS headless, syntax highlighting, commenti e feed RSS.',
+    tech: ['Astro', 'MDX', 'Tailwind CSS'],
+    github: 'https://github.com/mariorossi/devblog',
+    url: 'https://devblog-demo.example.com',
+  },
+  {
+    title: 'CLI File Organizer',
+    description: 'Tool CLI per organizzare automaticamente file in cartelle per tipo, data o dimensione.',
+    tech: ['Python', 'Click', 'Rich'],
+    github: 'https://github.com/mariorossi/file-organizer',
+  },
+  {
+    title: 'Real-Time Chat',
+    description: 'Applicazione chat in tempo reale con stanze, messaggi privati ed emoji reactions.',
+    tech: ['React', 'Firebase', 'Framer Motion'],
+    github: 'https://github.com/mariorossi/chat-app',
+    url: 'https://chat-demo.example.com',
+  },
+];
+
+const skills = [
+  'JavaScript', 'TypeScript', 'React', 'Vue.js', 'Node.js',
+  'Python', 'Astro', 'HTML/CSS', 'PostgreSQL', 'MongoDB',
+  'Docker', 'Git', 'REST API', 'GraphQL', 'Linux',
+  'CI/CD', 'Figma', 'Agile/Scrum',
+];
+---
+
+<BaseLayout>
+  <Header />
+
+  <main>
+    <Hero
+      name={info.name}
+      title={info.title}
+      bio={info.bio}
+      github={info.github}
+      linkedin={info.linkedin}
+      email={info.email}
+    />
+
+    <!-- Chi Sono -->
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title">Chi Sono</h2>
+        <div class="about-content fade-in">
+          <p>
+            Sono uno sviluppatore full stack con esperienza nella creazione di applicazioni web
+            performanti e scalabili. Mi piace trasformare idee complesse in soluzioni eleganti,
+            curando ogni dettaglio dall'architettura backend alla pixel-perfection del frontend.
+          </p>
+          <p>
+            Quando non scrivo codice, mi trovi a esplorare nuove tecnologie, contribuire a
+            progetti open source o condividere conoscenze con la community.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Progetti -->
+    <section id="projects" class="projects-section">
+      <div class="container">
+        <h2 class="section-title">Progetti</h2>
+        <div class="projects-grid">
+          {projects.map((project, i) => (
+            <div class={`fade-in fade-in-delay-${(i % 4) + 1}`}>
+              <ProjectCard {...project} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Competenze -->
+    <section id="skills">
+      <div class="container">
+        <h2 class="section-title">Competenze</h2>
+        <div class="skills-grid fade-in">
+          {skills.map(skill => (
+            <SkillBadge name={skill} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Contatti -->
+    <section id="contact" class="contact-section">
+      <div class="container contact-content">
+        <h2 class="section-title">Contatti</h2>
+        <p class="contact-text fade-in">
+          Hai un progetto interessante o vuoi semplicemente fare due chiacchiere?
+          Non esitare a contattarmi!
+        </p>
+        <a href={`mailto:${info.email}`} class="contact-btn fade-in fade-in-delay-1">
+          Scrivimi &rarr;
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* About */
+  .about-content {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .about-content p {
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Projects */
+  .projects-section {
+    background: var(--color-bg-alt);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  /* Skills */
+  .skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* Contact */
+  .contact-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .contact-text {
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+
+  .contact-btn {
+    display: inline-block;
+    padding: 0.85rem 2.5rem;
+    border-radius: var(--radius);
+    background: var(--gradient-accent);
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all var(--transition);
+  }
+
+  .contact-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(139, 92, 246, 0.3);
+    color: white;
+  }
+</style>
