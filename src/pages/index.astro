@@ -11,62 +11,49 @@ import Footer from '../components/Footer.astro';
 // ============================
 
 const info = {
-  name: 'Mario Rossi',
-  title: 'Full Stack Developer',
-  bio: 'Sviluppo applicazioni web moderne con passione per il codice pulito, le performance e la user experience. Sempre alla ricerca di nuove sfide tecnologiche.',
-  github: 'https://github.com/mariorossi',
-  linkedin: 'https://linkedin.com/in/mariorossi',
-  email: 'mario@example.com',
+  name: 'Alex',
+  title: 'Full Stack Developer & Infrastructure Engineer',
+  bio: 'Sviluppo applicazioni web e infrastrutture cloud, con passione per l\'architettura pulita, l\'automazione e i sistemi distribuiti.',
+  github: 'https://github.com/rh363',
+  linkedin: 'https://linkedin.com/in/alexmassaroni',
+  email: 'alex.massaroni2004@gmail.com',
 };
 
 const projects = [
   {
-    title: 'E-Commerce Platform',
-    description: 'Piattaforma e-commerce completa con gestione prodotti, carrello, pagamenti Stripe e dashboard admin.',
-    tech: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
-    github: 'https://github.com/mariorossi/ecommerce',
-    url: 'https://ecommerce-demo.example.com',
+    title: 'Cloud Image Management System',
+    description: 'Sistema di gestione e storage immagini con task asincroni, backend distribuiti WebDAV, locking distribuito via Redis e architettura esagonale.',
+    tech: ['Python', 'Django', 'Celery', 'Redis', 'Docker'],
   },
   {
-    title: 'Task Manager API',
-    description: 'API RESTful per gestione task con autenticazione JWT, ruoli utente e notifiche real-time via WebSocket.',
-    tech: ['TypeScript', 'Express', 'MongoDB', 'Socket.io'],
-    github: 'https://github.com/mariorossi/task-api',
+    title: 'VPC Management Platform',
+    description: 'Piattaforma full stack per la gestione di un servizio VPC (Virtual Private Cloud): frontend SPA reattivo per configurazione reti, subnet e risorse, con backend API per orchestrazione dell\'infrastruttura sottostante e pipeline CI/CD automatizzate.',
+    tech: ['SvelteKit', 'TypeScript', 'Tailwind CSS', 'Django', 'Docker', 'GitLab CI/CD'],
   },
   {
-    title: 'Weather Dashboard',
-    description: 'Dashboard meteo interattiva con previsioni a 7 giorni, grafici e geolocalizzazione automatica.',
-    tech: ['Vue.js', 'Chart.js', 'OpenWeather API'],
-    github: 'https://github.com/mariorossi/weather',
-    url: 'https://weather-demo.example.com',
+    title: 'RPC Worker API',
+    description: 'API worker in Go per operazioni su immagini disco (checksum, editing, cloning) con autenticazione JWT RS256 e orchestrazione tramite task queue.',
+    tech: ['Go', 'JWT', 'Celery', 'Django'],
   },
   {
-    title: 'DevBlog',
-    description: 'Blog personale con CMS headless, syntax highlighting, commenti e feed RSS.',
-    tech: ['Astro', 'MDX', 'Tailwind CSS'],
-    github: 'https://github.com/mariorossi/devblog',
-    url: 'https://devblog-demo.example.com',
+    title: 'Kubernetes & Infrastructure Stack',
+    description: 'Setup e gestione cluster Kubernetes con Cilium, reverse proxy Traefik con plugin custom in Go, e monitoring Prometheus su Rocky Linux.',
+    tech: ['Kubernetes', 'Traefik', 'Go', 'Prometheus', 'Rocky Linux'],
   },
   {
-    title: 'CLI File Organizer',
-    description: 'Tool CLI per organizzare automaticamente file in cartelle per tipo, data o dimensione.',
-    tech: ['Python', 'Click', 'Rich'],
-    github: 'https://github.com/mariorossi/file-organizer',
-  },
-  {
-    title: 'Real-Time Chat',
-    description: 'Applicazione chat in tempo reale con stanze, messaggi privati ed emoji reactions.',
-    tech: ['React', 'Firebase', 'Framer Motion'],
-    github: 'https://github.com/mariorossi/chat-app',
-    url: 'https://chat-demo.example.com',
+    title: 'Identity & Access Management',
+    description: 'Integrazione Keycloak/OIDC across multiple services: SSO, token refresh, password reset flows, admin API wrapper.',
+    tech: ['Keycloak', 'OIDC', 'Python', 'PHP'],
   },
 ];
 
 const skills = [
-  'JavaScript', 'TypeScript', 'React', 'Vue.js', 'Node.js',
-  'Python', 'Astro', 'HTML/CSS', 'PostgreSQL', 'MongoDB',
-  'Docker', 'Git', 'REST API', 'GraphQL', 'Linux',
-  'CI/CD', 'Figma', 'Agile/Scrum',
+  'Python', 'Django', 'Go', 'TypeScript', 'SvelteKit',
+  'Flutter', 'Docker', 'Kubernetes', 'Traefik',
+  'Linux (Rocky/Debian/Ubuntu)', 'Git', 'GitLab CI/CD',
+  'Celery', 'Redis', 'PostgreSQL', 'MySQL',
+  'Keycloak/OIDC', 'Nginx', 'Prometheus', 'KVM/libvirt',
+  'HTML/CSS', 'Tailwind CSS', 'Hexagonal Architecture',
 ];
 ---
 
@@ -89,13 +76,15 @@ const skills = [
         <h2 class="section-title">Chi Sono</h2>
         <div class="about-content fade-in">
           <p>
-            Sono uno sviluppatore full stack con esperienza nella creazione di applicazioni web
-            performanti e scalabili. Mi piace trasformare idee complesse in soluzioni eleganti,
-            curando ogni dettaglio dall'architettura backend alla pixel-perfection del frontend.
+            Sono uno sviluppatore e infrastructure engineer con esperienza in ambienti cloud e hosting.
+            Lavoro quotidianamente su backend in Python/Django e Go, frontend in SvelteKit e TypeScript,
+            e gestisco infrastrutture basate su Docker, Kubernetes e Linux. Studio Ingegneria Informatica
+            e Telecomunicazioni all'università, bilanciando lavoro e studio.
           </p>
           <p>
-            Quando non scrivo codice, mi trovi a esplorare nuove tecnologie, contribuire a
-            progetti open source o condividere conoscenze con la community.
+            Credo nell'architettura esagonale, nei principi SOLID e nelle soluzioni concrete.
+            Quando non scrivo codice, esploro nuove tecnologie, dal mobile con Flutter
+            all'orchestrazione con AI coding tools.
           </p>
         </div>
       </div>
