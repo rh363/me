@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rh363.github.io/me/sitemap-index.xml

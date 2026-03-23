@@ -1,37 +1,13 @@
 ---
+import { techColors } from '../data/techColors';
+
 interface Props {
   name: string;
 }
 
 const { name } = Astro.props;
 
-const colorMap: Record<string, { color: string; bg: string; border: string }> = {
-  'Python':        { color: '#3776AB', bg: 'rgba(55, 118, 171, 0.1)',  border: 'rgba(55, 118, 171, 0.3)' },
-  'Django':        { color: '#44B78B', bg: 'rgba(68, 183, 139, 0.1)',  border: 'rgba(68, 183, 139, 0.3)' },
-  'Go':            { color: '#00ADD8', bg: 'rgba(0, 173, 216, 0.1)',   border: 'rgba(0, 173, 216, 0.3)' },
-  'TypeScript':    { color: '#3178C6', bg: 'rgba(49, 120, 198, 0.1)',  border: 'rgba(49, 120, 198, 0.3)' },
-  'SvelteKit':     { color: '#FF3E00', bg: 'rgba(255, 62, 0, 0.1)',   border: 'rgba(255, 62, 0, 0.3)' },
-  'Flutter':       { color: '#02569B', bg: 'rgba(2, 86, 155, 0.1)',   border: 'rgba(2, 86, 155, 0.3)' },
-  'Docker':        { color: '#2496ED', bg: 'rgba(36, 150, 237, 0.1)', border: 'rgba(36, 150, 237, 0.3)' },
-  'Kubernetes':    { color: '#326CE5', bg: 'rgba(50, 108, 229, 0.1)', border: 'rgba(50, 108, 229, 0.3)' },
-  'Traefik':       { color: '#24A1C1', bg: 'rgba(36, 161, 193, 0.1)', border: 'rgba(36, 161, 193, 0.3)' },
-  'Linux (Rocky/Debian/Ubuntu)': { color: '#FCC624', bg: 'rgba(252, 198, 36, 0.08)', border: 'rgba(252, 198, 36, 0.3)' },
-  'Git':           { color: '#F05032', bg: 'rgba(240, 80, 50, 0.1)',  border: 'rgba(240, 80, 50, 0.3)' },
-  'GitLab CI/CD':  { color: '#FC6D26', bg: 'rgba(252, 109, 38, 0.1)', border: 'rgba(252, 109, 38, 0.3)' },
-  'Celery':        { color: '#37B24D', bg: 'rgba(55, 178, 77, 0.1)',  border: 'rgba(55, 178, 77, 0.3)' },
-  'Redis':         { color: '#DC382D', bg: 'rgba(220, 56, 45, 0.1)',  border: 'rgba(220, 56, 45, 0.3)' },
-  'PostgreSQL':    { color: '#4169E1', bg: 'rgba(65, 105, 225, 0.1)', border: 'rgba(65, 105, 225, 0.3)' },
-  'MySQL':         { color: '#4479A1', bg: 'rgba(68, 121, 161, 0.1)', border: 'rgba(68, 121, 161, 0.3)' },
-  'Keycloak/OIDC': { color: '#4D4D4D', bg: 'rgba(77, 77, 77, 0.1)',  border: 'rgba(77, 77, 77, 0.3)' },
-  'Nginx':         { color: '#009639', bg: 'rgba(0, 150, 57, 0.1)',   border: 'rgba(0, 150, 57, 0.3)' },
-  'Prometheus':    { color: '#E6522C', bg: 'rgba(230, 82, 44, 0.1)',  border: 'rgba(230, 82, 44, 0.3)' },
-  'KVM/libvirt':   { color: '#888888', bg: 'rgba(136, 136, 136, 0.1)', border: 'rgba(136, 136, 136, 0.3)' },
-  'HTML/CSS':      { color: '#E34F26', bg: 'rgba(227, 79, 38, 0.1)', border: 'rgba(227, 79, 38, 0.3)' },
-  'Tailwind CSS':  { color: '#06B6D4', bg: 'rgba(6, 182, 212, 0.1)', border: 'rgba(6, 182, 212, 0.3)' },
-  'Hexagonal Architecture': { color: '#8B5CF6', bg: 'rgba(139, 92, 246, 0.1)', border: 'rgba(139, 92, 246, 0.3)' },
-};
-
-const style = colorMap[name];
+const style = techColors[name];
 ---
 
 <span
