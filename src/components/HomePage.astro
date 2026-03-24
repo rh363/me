@@ -7,17 +7,18 @@ import SkillBadge from './SkillBadge.astro';
 import Footer from './Footer.astro';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 import { getProjects } from '../data/projects';
+import { siteConfig } from '../data/siteConfig';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const info = {
-  name: 'Alex',
+  name: siteConfig.name,
   title: t('hero.title'),
   bio: t('hero.bio'),
-  github: 'https://github.com/rh363',
-  linkedin: 'https://linkedin.com/in/alex-massaroni',
-  email: 'alex.massaroni2004@gmail.com',
+  github: siteConfig.social.github,
+  linkedin: siteConfig.social.linkedin,
+  email: siteConfig.email,
 };
 
 const projects = getProjects(t);

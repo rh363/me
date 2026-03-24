@@ -166,39 +166,49 @@ const links = [
 </style>
 
 <script>
-  const toggle = document.getElementById('menu-toggle');
-  const nav = document.querySelector('.nav-links');
+  function initMenu() {
+    const controller = new AbortController();
+    const { signal } = controller;
 
-  function closeMenu() {
-    nav?.classList.remove('open');
-    toggle?.classList.remove('active');
-    toggle?.setAttribute('aria-expanded', 'false');
+    const toggle = document.getElementById('menu-toggle');
+    const nav = document.querySelector('.nav-links');
+
+    function closeMenu() {
+      nav?.classList.remove('open');
+      toggle?.classList.remove('active');
+      toggle?.setAttribute('aria-expanded', 'false');
+    }
+
+    toggle?.addEventListener('click', () => {
+      const isOpen = nav?.classList.toggle('open');
+      toggle.classList.toggle('active', !!isOpen);
+      toggle.setAttribute('aria-expanded', String(!!isOpen));
+    }, { signal });
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => closeMenu(), { signal });
+    });
+
+    document.addEventListener('click', (e) => {
+      const target = e.target as Node;
+      if (nav?.classList.contains('open') && !nav.contains(target) && !toggle?.contains(target)) {
+        closeMenu();
+      }
+    }, { signal });
+
+    document.querySelectorAll('.lang-switch').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const hash = window.location.hash;
+        if (hash) {
+          e.preventDefault();
+          window.location.href = (link as HTMLAnchorElement).getAttribute('href') + hash;
+        }
+      }, { signal });
+    });
+
+    document.addEventListener('astro:before-swap', () => controller.abort(), { once: true });
   }
 
-  toggle?.addEventListener('click', () => {
-    const isOpen = nav?.classList.toggle('open');
-    toggle.classList.toggle('active', !!isOpen);
-    toggle.setAttribute('aria-expanded', String(!!isOpen));
-  });
-
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => closeMenu());
-  });
-
-  document.addEventListener('click', (e) => {
-    const target = e.target as Node;
-    if (nav?.classList.contains('open') && !nav.contains(target) && !toggle?.contains(target)) {
-      closeMenu();
-    }
-  });
-
-  document.querySelectorAll('.lang-switch').forEach(link => {
-    link.addEventListener('click', (e) => {
-      const hash = window.location.hash;
-      if (hash) {
-        e.preventDefault();
-        window.location.href = (link as HTMLAnchorElement).getAttribute('href') + hash;
-      }
-    });
-  });
+  initMenu();
+  document.addEventListener('astro:after-swap', initMenu);
 </script>
