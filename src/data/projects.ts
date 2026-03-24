@@ -1,4 +1,6 @@
-export function getProjects(t: (key: string) => string) {
+import type { ui } from '../i18n/ui';
+
+export function getProjects(t: (key: keyof typeof ui.it) => string) {
   return [
     {
       title: 'Cloud Image Management System',

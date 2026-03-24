@@ -11,7 +11,21 @@ export function getLangFromUrl(url: URL): Lang {
 
 export function useTranslations(lang: Lang) {
   return function t(key: keyof typeof ui.it): string {
-    return ui[lang][key] ?? ui[defaultLang][key];
+    const value = ui[lang][key];
+    if (value !== undefined) return value;
+
+    if (import.meta.env.DEV) {
+      console.warn(`[i18n] Missing translation for key "${key}" in locale "${lang}", falling back to "${defaultLang}"`);
+    }
+
+    const fallback = ui[defaultLang][key];
+    if (fallback !== undefined) return fallback;
+
+    if (import.meta.env.DEV) {
+      console.error(`[i18n] Translation key "${key}" not found in any locale`);
+    }
+
+    return key;
   };
 }
 
